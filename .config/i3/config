@@ -9,6 +9,8 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+#use xrandr --query to view displays
+
 set $display0 "DVI-D-0"
 set $display1 "HDMI-0"
 set $display2 "DP-1"
@@ -18,6 +20,10 @@ bindsym $mod+Pause mode "$mode_system"
 set $mod Mod4
 set $mod1 Ctrl
 set $mod2 Mod1
+
+#display brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10                               
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -310,6 +316,7 @@ bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F
 
 set $Locker i3lock && sleep 1
 
+#shutdown/reboot menu
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
@@ -323,6 +330,3 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20; # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20; # decrease screen brightness
