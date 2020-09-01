@@ -9,6 +9,8 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+#required applications: xbacklight, pulseaudio, pactl, i3status, dmenu, i3lock, loginctl (runit)
+
 #use xrandr --query to view displays
 
 set $display0 "DVI-D-0"
@@ -22,7 +24,7 @@ set $mod1 Ctrl
 set $mod2 Mod1
 
 #display brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10                               
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # Font for window titles. Will also be used by the bar unless a different font
