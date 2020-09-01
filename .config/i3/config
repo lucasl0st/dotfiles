@@ -9,6 +9,12 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+set $display0 "DVI-D-0"
+set $display1 "HDMI-0"
+set $display2 "DP-1"
+
+bindsym $mod+Pause mode "$mode_system"
+
 set $mod Mod4
 set $mod1 Ctrl
 set $mod2 Mod1
@@ -103,10 +109,6 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
-
-set $display0 "DVI-D-0"
-set $display1 "HDMI-0"
-set $display2 "DP-1"
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -321,8 +323,6 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
-bindsym $mod+Pause mode "$mode_system"
 
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20; # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20; # decrease screen brightness
