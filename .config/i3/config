@@ -95,9 +95,9 @@ set $ws03 "03"
 set $ws04 "04"
 set $ws05 "05"
 set $ws06 "06"
-set $ws07 "07 Thunderbird"
-set $ws08 "08 Rocket.Chat"
-set $ws09 "09 Teams"
+set $ws07 "07"
+set $ws08 "08"
+set $ws09 "09"
 set $ws010 "010"
 
 workspace $ws01 output $display0
@@ -301,15 +301,3 @@ mode "$mode_system" {
 }
 
 bindsym $mod+p mode "$mode_system"
-
-
-#startup applications
-exec --no-startup-id rocketchat-desktop
-exec --no-startup-id /sbin/teams-for-linux
-exec --no-startup-id thunderbird
-
-for_window [class="teams-for-linux"] move container to workspace $ws09
-for_window [class="Rocket.Chat"] move container to workspace $ws08
-for_window [class="Thunderbird"] move container to workspace $ws07
-
-include /etc/sway/config.d/*
