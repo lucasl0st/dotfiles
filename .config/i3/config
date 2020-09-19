@@ -4,6 +4,7 @@ set $network-applet "nm-applet"
 set $terminal "alacritty"
 set $exit "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 set $menu "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+set $compositor "picom --config /home/lucas/.config/picom/config"
 
 #use xrandr --query to view displays
 
@@ -15,6 +16,7 @@ set $mod Mod4
 set $mod1 Ctrl
 set $mod2 Mod1
 
+exec --no-startup-id $compositor
 exec --no-startup-id $auth-agent
 
 #display brightness
