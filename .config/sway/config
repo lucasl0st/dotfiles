@@ -5,6 +5,7 @@ input * {
 }
 
 set $auth-agent "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
+set $keyring "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh"
 set $lock "swaylock"
 set $network-applet "nm-applet"
 set $terminal "alacritty"
@@ -24,6 +25,7 @@ output $display1 pos 3840 0
 output $display2 pos 0 120
 
 exec --no-startup-id $auth-agent
+exec --no-startup-id $keyring
 
 #display brightness
 bindsym XF86MonBrightnessUp exec brightnessctl s 1000+
