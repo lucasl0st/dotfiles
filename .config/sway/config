@@ -12,16 +12,16 @@ set $terminal "alacritty"
 set $exit "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'"
 set $menu "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
 
-set $display0 "eDP-1"
-set $display1 "DP-3"
+set $display0 "HDMI-A-2"
+set $display1 "DVI-D-1"
 set $display2 "DP-4"
 
 set $mod Mod4
 set $mod1 Ctrl
 set $mod2 Mod1
 
-output $display0 pos 1920 0
-output $display1 pos 3840 0
+output $display0 pos 1680 0
+output $display1 pos 0 0
 output $display2 pos 0 120
 
 exec --no-startup-id $auth-agent
@@ -105,9 +105,9 @@ set $ws03 "03"
 set $ws04 "04"
 set $ws05 "05"
 set $ws06 "06"
-set $ws07 "07 Thunderbird"
-set $ws08 "08 Rocket.Chat"
-set $ws09 "09 Teams"
+set $ws07 "07"
+set $ws08 "08"
+set $ws09 "09"
 set $ws010 "010"
 
 workspace $ws01 output $display0
@@ -312,14 +312,6 @@ mode "$mode_system" {
 
 bindsym $mod+p mode "$mode_system"
 
-
-#startup applications
-exec --no-startup-id rocketchat-desktop
-exec --no-startup-id /sbin/teams-for-linux
-exec --no-startup-id thunderbird
-
-for_window [class="teams-for-linux"] move container to workspace $ws09
-for_window [class="Rocket.Chat"] move container to workspace $ws08
-for_window [class="Thunderbird"] move container to workspace $ws07
+bindsym $mod+Pause exec --no-startup-id sway-pause
 
 include /etc/sway/config.d/*
