@@ -11,42 +11,61 @@ set $network-applet "nm-applet"
 set $terminal "alacritty"
 set $exit "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'"
 set $menu "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+set $shutdown-menu "nwgbar"
+set $grid "nwggrid"
 
-set $display0 "HDMI-A-2"
-set $display1 "DVI-D-1"
-set $display2 "DP-4"
+set $display0 "DP-1"
+set $display1 "DP-2"
+set $display2 "DP-3"
 
 set $mod Mod4
 set $mod1 Ctrl
 set $mod2 Mod1
 
+#display positions
 output $display0 pos 1680 0
 output $display1 pos 0 0
 output $display2 pos 0 120
 
+font pango:monospace Big 8
+
+#startup applications
+exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock --nofork
+exec --no-startup-id $network-applet
 exec --no-startup-id $auth-agent
 exec --no-startup-id $keyring
 
-#display brightness
-bindsym XF86MonBrightnessUp exec brightnessctl s 1000+
-bindsym XF86MonBrightnessDown exec brightnessctl s 1000-
+#####Keybindings#####
 
-font pango:monospace 8
-
-exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock --nofork
-exec --no-startup-id $network-applet
-
+#Media keys
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+#Display brightness
+bindsym XF86MonBrightnessUp exec brightnessctl s 1000+
+bindsym XF86MonBrightnessDown exec brightnessctl s 1000-
+
+#Menu keys
+bindsym $mod+d exec $menu
+bindsym $mod+p exec $shutdown-menu
+bindsym $mod+g exec $grid
+bindsym $mod+Pause exec --no-startup-id sway-pause
+
+#General
+bindsym $mod+Return exec $terminal
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec $exit
 
 floating_modifier $mod
-
-bindsym $mod+Return exec $terminal
-
-bindsym $mod+Shift+q kill
 
 # change focus
 bindsym $mod+j focus left
@@ -99,6 +118,8 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 #Workspaces
+
+#Display0
 set $ws01 "01"
 set $ws02 "02"
 set $ws03 "03"
@@ -121,6 +142,7 @@ workspace $ws08 output $display0
 workspace $ws09 output $display0
 workspace $ws010 output $display0
 
+#Display1
 set $ws11 "11"
 set $ws12 "12"
 set $ws13 "13"
@@ -143,6 +165,7 @@ workspace $ws18 output $display1
 workspace $ws19 output $display1
 workspace $ws110 output $display1
 
+#Display2
 set $ws21 "21"
 set $ws22 "22"
 set $ws23 "23"
@@ -234,13 +257,6 @@ bindsym $mod2+Shift+8 move container to workspace number $ws28
 bindsym $mod2+Shift+9 move container to workspace number $ws29
 bindsym $mod2+Shift+0 move container to workspace number $ws210
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec $exit
-
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -268,50 +284,39 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# class                 border  bground text    indicator child_border
-client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+#Styling
 
-client.background       #F8F8F2
+set $textcolor #FFFFFF
+set $textcolorUrgent #b80000
+set $border #000000
+set $bg #000000
+set $indicator #000000
+set $childBorder #000000
+set $borderActive #474747
+
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border  BG      Text    Indicator Child Border
+client.focused          $borderActive $bg $textcolor $indicator $childBorder
+client.focused_inactive $border $bg $textcolor $indicator $childBorder
+client.unfocused        $border $bg $textcolor $indicator $childBorder
+client.urgent           $border $bg $textcolorUrgent $indicator $childBorder
+client.placeholder      $border $bg $textcolor $indicator $childBorder
+
+client.background       $bg
 
 bar {
   status_command i3status
 
   colors {
-    background #282A36
-    statusline #F8F8F2
-    separator  #44475A
+    background $bg
+    separator  $borderActive
+    statusline $textcolor
 
-    focused_workspace  #44475A #44475A #F8F8F2
-    active_workspace   #282A36 #44475A #F8F8F2
-    inactive_workspace #282A36 #282A36 #BFBFBF
-    urgent_workspace   #FF5555 #FF5555 #F8F8F2
-    binding_mode       #FF5555 #FF5555 #F8F8F2
+    # State             Border  BG      Text
+    focused_workspace   $borderActive $bg $textcolor
+    active_workspace    $borderActive $bg $textcolor
+    inactive_workspace  $border $bg $textcolor
+    urgent_workspace    $border $bg $textcolorUrgent
+    binding_mode        $border $bg $textcolor
   }
 }
-
-bindsym $mod+d exec $menu
-
-#shutdown/reboot menu
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
-mode "$mode_system" {
-    bindsym l exec --no-startup-id $Locker, mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id $lock && systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id $lock && systemctl hibernate, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-bindsym $mod+p mode "$mode_system"
-
-bindsym $mod+Pause exec --no-startup-id sway-pause
-
-include /etc/sway/config.d/*
