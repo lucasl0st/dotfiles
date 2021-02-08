@@ -286,6 +286,8 @@ bindsym $mod+r mode "resize"
 
 #Styling
 
+default_border pixel 2
+
 set $textcolor #FFFFFF
 set $textcolorUrgent #b80000
 set $border #000000
@@ -320,3 +322,5 @@ bar {
     binding_mode        $border $bg $textcolor
   }
 }
+
+include /etc/sway/config.d/*
