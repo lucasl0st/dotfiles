@@ -1,6 +1,6 @@
 #required packages:
 # Arch Linux:
-#  sway xorg-server-xwayland i3status alacritty polkit-gnome gnome-keyring swaylock networkmanager dmenu-wayland-git nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl
+#  sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock networkmanager dmenu-wayland-git nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl
 
 input * xkb_layout "de"
 
@@ -18,9 +18,9 @@ set $menu "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn
 set $shutdown-menu "nwgbar"
 set $grid "nwggrid"
 
-set $display0 "DP-1"
-set $display1 "DP-2"
-set $display2 "DP-3"
+set $display0 "DP-2"
+set $display1 "DP-3"
+set $display2 "DP-4"
 
 set $mod Mod4
 set $mod1 Ctrl
@@ -42,11 +42,10 @@ exec --no-startup-id $keyring
 #####Keybindings#####
 
 #Media keys
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioStop exec playerctl stop
@@ -311,20 +310,9 @@ client.placeholder      $border $bg $textcolor $indicator $childBorder
 client.background       $bg
 
 bar {
-  status_command i3status
-
-  colors {
-    background $bg
-    separator  $borderActive
-    statusline $textcolor
-
-    # State             Border  BG      Text
-    focused_workspace   $borderActive $bg $textcolor
-    active_workspace    $borderActive $bg $textcolor
-    inactive_workspace  $border $bg $textcolor
-    urgent_workspace    $border $bg $textcolorUrgent
-    binding_mode        $border $bg $textcolor
-  }
+    swaybar_command waybar
 }
+
+exec waybar
 
 include /etc/sway/config.d/*
