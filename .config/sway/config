@@ -1,3 +1,7 @@
+#required packages:
+# Arch Linux:
+#  sway xorg-server-xwayland i3status alacritty polkit-gnome gnome-keyring swaylock networkmanager dmenu-wayland-git nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl
+
 input * xkb_layout "de"
 
 input * {
