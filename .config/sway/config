@@ -1,6 +1,6 @@
 #required packages:
 # Arch Linux:
-#  sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock networkmanager dmenu-wayland-git nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl
+#  sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock networkmanager dmenu-wayland-git nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl bluez bluez-utils blueman
 
 input * xkb_layout "de"
 
@@ -8,6 +8,7 @@ input * {
   tap enabled
 }
 
+set $bluetooth-applet "blueman-applet"
 set $auth-agent "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 set $keyring "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh"
 set $lock "swaylock"
@@ -38,6 +39,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock --nofork
 exec --no-startup-id $network-applet
 exec --no-startup-id $auth-agent
 exec --no-startup-id $keyring
+exec --no-startup-id $bluetooth-applet
 
 #####Keybindings#####
 
@@ -312,7 +314,5 @@ client.background       $bg
 bar {
     swaybar_command waybar
 }
-
-exec waybar
 
 include /etc/sway/config.d/*
