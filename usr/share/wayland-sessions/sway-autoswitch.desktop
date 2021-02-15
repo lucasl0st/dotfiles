@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Sway-Autoswitch
+Comment=Use different sway config if display connected (useful for laptops with docks)
+Exec=sway-autoswitch
+Type=Application
