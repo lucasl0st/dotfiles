@@ -22,13 +22,7 @@ set $menu "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn
 set $shutdown-menu "nwgbar"
 set $grid "nwggrid"
 
-# Displays
-# List:
-#  swaymsg -t get_outputs
-
-set $display0 "DP-2"
-set $display1 "DP-3"
-set $display2 "DP-4"
+include display
 
 set $mod Mod4
 set $mod1 Ctrl
