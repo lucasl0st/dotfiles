@@ -1,0 +1,3 @@
+set $display0 "DP-4"
+set $display1 "DP-3"
+set $display2 "eDP-1"
