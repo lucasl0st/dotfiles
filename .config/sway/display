@@ -1,0 +1,7 @@
+# Displays
+# List:
+#  swaymsg -t get_outputs
+
+set $display0 "DP-2"
+set $display1 "DP-3"
+set $display2 "DP-4"
