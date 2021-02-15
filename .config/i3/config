@@ -1,7 +1,7 @@
 #backup i3 config in case something does not work in wayland/sway
 #required packages:
 # Arch Linux:
-#  ly i3 waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl bluez bluez-utils blueman
+#  ly i3 picom waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl bluez bluez-utils blueman
 
 # Services:
 #  ly bluetooth NetworkManager
