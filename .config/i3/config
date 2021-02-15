@@ -1,3 +1,4 @@
+#backup i3 config in case something does not work in wayland/sway
 #required packages:
 # Arch Linux:
 #  ly i3 waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl bluez bluez-utils blueman
@@ -300,19 +301,6 @@ client.placeholder      $border $bg $textcolor $indicator $childBorder
 
 client.background       $bg
 
-
 bar {
   status_command i3status
-
-  colors {
-    background #282A36
-    statusline #F8F8F2
-    separator  #44475A
-
-    focused_workspace  #44475A #44475A #F8F8F2
-    active_workspace   #282A36 #44475A #F8F8F2
-    inactive_workspace #282A36 #282A36 #BFBFBF
-    urgent_workspace   #FF5555 #FF5555 #F8F8F2
-    binding_mode       #FF5555 #FF5555 #F8F8F2
-  }
 }
