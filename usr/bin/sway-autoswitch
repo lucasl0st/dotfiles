@@ -1,0 +1,16 @@
+#!/bin/bash
+
+configDefault="/home/lpape/.config/sway/config.base"
+configDocked="/home/lpape/.config/sway/config.docked"
+
+config="/home/lpape/.config/sway/config"
+
+display="/sys/class/drm/card0-DP-3"
+
+if [ -d $display ]; then
+  cp $configDocked $config
+else
+  cp $configDefault $config
+fi
+
+exec /usr/bin/sway
