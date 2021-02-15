@@ -1,9 +1,9 @@
 #!/bin/bash
 
-configDefault="/home/lpape/.config/sway/config.base"
-configDocked="/home/lpape/.config/sway/config.docked"
+configDefault="/home/lpape/.config/sway/display.base"
+configDocked="/home/lpape/.config/sway/display.docked"
 
-config="/home/lpape/.config/sway/config"
+config="/home/lpape/.config/sway/display"
 
 display="/sys/class/drm/card0-DP-3"
 
