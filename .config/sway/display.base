@@ -1,3 +1,12 @@
 set $display0 "eDP-1"
 set $display1 "DP-3"
 set $display2 "DP-4"
+
+set $display0X 1920
+set $display0Y 0
+
+set $display1X 3840
+set $display1Y 0
+
+set $display2X 0
+set $display2Y 120
