@@ -11,7 +11,7 @@ set $keyring "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,
 set $lock "swaylock"
 set $network-applet "nm-applet"
 set $terminal "alacritty"
-set $exit "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'"
+set $exit "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 set $menu "j4-dmenu-desktop"
 set $shutdown-menu "nwgbar"
 set $grid "nwggrid"
