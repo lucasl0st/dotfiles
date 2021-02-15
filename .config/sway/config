@@ -123,18 +123,7 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 #Workspaces
-
-#Display0
-set $ws01 "01"
-set $ws02 "02"
-set $ws03 "03"
-set $ws04 "04"
-set $ws05 "05"
-set $ws06 "06"
-set $ws07 "07"
-set $ws08 "08"
-set $ws09 "09"
-set $ws010 "010"
+include workspace_names
 
 workspace $ws01 output $display0
 workspace $ws02 output $display0
@@ -147,18 +136,6 @@ workspace $ws08 output $display0
 workspace $ws09 output $display0
 workspace $ws010 output $display0
 
-#Display1
-set $ws11 "11"
-set $ws12 "12"
-set $ws13 "13"
-set $ws14 "14"
-set $ws15 "15"
-set $ws16 "16"
-set $ws17 "17"
-set $ws18 "18"
-set $ws19 "19"
-set $ws110 "110"
-
 workspace $ws11 output $display1
 workspace $ws12 output $display1
 workspace $ws13 output $display1
@@ -169,18 +146,6 @@ workspace $ws17 output $display1
 workspace $ws18 output $display1
 workspace $ws19 output $display1
 workspace $ws110 output $display1
-
-#Display2
-set $ws21 "21"
-set $ws22 "22"
-set $ws23 "23"
-set $ws24 "24"
-set $ws25 "25"
-set $ws26 "26"
-set $ws27 "27"
-set $ws28 "28"
-set $ws29 "29"
-set $ws210 "210"
 
 workspace $ws21 output $display2
 workspace $ws22 output $display2
@@ -314,5 +279,8 @@ client.background       $bg
 bar {
     swaybar_command waybar
 }
+
+include startup
+include move_application_to_workspace
 
 include /etc/sway/config.d/*
