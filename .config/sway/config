@@ -24,14 +24,10 @@ set $grid "nwggrid"
 
 include display
 
-set $mod Mod4
-set $mod1 Ctrl
-set $mod2 Mod1
-
 #display positions
-output $display0 pos 1680 0
-output $display1 pos 0 0
-output $display2 pos 0 120
+output $display0 pos $display0X $display0Y
+output $display1 pos $display1X $display1Y
+output $display2 pos $display2X $display2Y
 
 font pango:monospace Big 8
 
@@ -43,6 +39,9 @@ exec --no-startup-id $keyring
 exec --no-startup-id $bluetooth-applet
 
 #####Keybindings#####
+set $mod Mod4
+set $mod1 Ctrl
+set $mod2 Mod1
 
 #Media keys
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
