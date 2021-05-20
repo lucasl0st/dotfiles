@@ -1,6 +1,6 @@
 #required packages:
 # Arch Linux:
-#  ly sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse xdg-desktop-portal xdg-desktop-portal-wlr playerctl brightnessctl bluez bluez-utils blueman
+#  ly sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse xdg-desktop-portal xdg-desktop-portal-wlr slurp playerctl brightnessctl bluez bluez-utils blueman
 
 # Services:
 #  ly bluetooth NetworkManager
