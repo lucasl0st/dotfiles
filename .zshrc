@@ -17,6 +17,8 @@ setopt hist_ignore_all_dups
 
 setopt hist_ignore_space
 
+zstyle ':completion::complete:*' gain-privileges 1
+
 # Default completion style is quite plain and ugly. If you want to improve its appearance, enter the following commands: 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' completer _expand _complete _expand_alias
