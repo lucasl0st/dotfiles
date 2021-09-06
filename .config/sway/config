@@ -1,6 +1,6 @@
 #required packages:
 # Arch Linux:
-#  ly sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse xdg-desktop-portal xdg-desktop-portal-wlr slurp playerctl brightnessctl bluez bluez-utils blueman
+#  ly sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock-effects networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl bluez bluez-utils blueman
 
 # Services:
 #  ly bluetooth NetworkManager
@@ -14,7 +14,11 @@ input * {
 set $bluetooth-applet "blueman-applet"
 set $auth-agent "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 set $keyring "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh"
-set $lock "swaylock"
+set $lock "swaylock --screenshots --clock --effect-blur 10x10 --grace 10"
+
+set $lockidle "swayidle -w \
+    timeout 340 '$lock'
+
 set $network-applet "nm-applet"
 set $terminal "alacritty"
 set $exit "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'"
@@ -32,11 +36,12 @@ output $display2 pos $display2X $display2Y
 font pango:monospace Big 8
 
 #startup applications
-exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock --nofork
 exec --no-startup-id $network-applet
 exec --no-startup-id $auth-agent
 exec --no-startup-id $keyring
 exec --no-startup-id $bluetooth-applet
+exec --no-startup-id $lockidle
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 #####Keybindings#####
 set $mod Mod4
@@ -62,16 +67,23 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 1000-
 bindsym $mod+d exec $menu
 bindsym $mod+p exec $shutdown-menu
 bindsym $mod+g exec $grid
+bindsym $mod+shift+p exec --no-startup-id $lock
 bindsym $mod+Pause exec --no-startup-id sway-pause
+bindsym $mod+shift+s exec --no-startup-id systemctl suspend
 
 #General
 bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec $exit
-bindsym $mod+l exec $lock
 
 floating_modifier $mod
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -176,6 +188,7 @@ bindsym $mod1+8 workspace number $ws18
 bindsym $mod1+9 workspace number $ws19
 bindsym $mod1+0 workspace number $ws110
 
+#commented out because I need ALT key on german keyboard
 bindsym $mod2+1 workspace number $ws21
 bindsym $mod2+2 workspace number $ws22
 bindsym $mod2+3 workspace number $ws23
@@ -278,3 +291,7 @@ include startup
 include move_application_to_workspace
 
 include /etc/sway/config.d/*
+
+bindsym $mod+Print exec grim -g "$(slurp)" -t png /home/lpape/screenshot.png
+
+output * bg ~/.config/sway/background.jpg fill
