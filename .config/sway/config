@@ -1,6 +1,6 @@
 #required packages:
 # Arch Linux:
-#  ly sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock-effects networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse pipewire-media-session playerctl brightnessctl bluez bluez-utils blueman
+#  ly sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock-effects networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl bluez bluez-utils blueman
 
 # Services:
 #  ly bluetooth NetworkManager
@@ -15,6 +15,7 @@ set $bluetooth-applet "blueman-applet"
 set $auth-agent "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 set $keyring "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh"
 set $lock "swaylock --screenshots --clock --effect-blur 10x10 --grace 10"
+set $notification "/usr/bin/dunst"
 
 set $lockidle "swayidle -w \
     timeout 340 '$lock'
@@ -42,6 +43,7 @@ exec --no-startup-id $keyring
 exec --no-startup-id $bluetooth-applet
 exec --no-startup-id $lockidle
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec --no-startup-id $notification
 
 #####Keybindings#####
 set $mod Mod4
@@ -234,6 +236,9 @@ bindsym $mod2+Shift+8 move container to workspace number $ws28
 bindsym $mod2+Shift+9 move container to workspace number $ws29
 bindsym $mod2+Shift+0 move container to workspace number $ws210
 
+bindsym $mod+Control+Shift+Right move workspace to output right
+bindsym $mod+Control+Shift+Left move workspace to output left
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -295,3 +300,11 @@ include /etc/sway/config.d/*
 bindsym $mod+Print exec grim -g "$(slurp)" -t png /home/lpape/screenshot.png
 
 output * bg ~/.config/sway/background.jpg fill
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Arc-Dark'
+    gsettings set $gnome-schema icon-theme 'Adwaita'
+    gsettings set $gnome-schema cursor-theme 'Adwaita'
+}
