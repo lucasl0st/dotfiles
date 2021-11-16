@@ -1,0 +1,3 @@
+chrome://flags/
+
+enable-webrtc-pipewire-capturer
