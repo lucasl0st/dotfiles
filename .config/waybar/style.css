@@ -96,12 +96,7 @@ window#waybar.chromium {
 
 #battery.critical:not(.charging) {
     background-color: #000000;
-    color: #ff3526;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    color: #ff0000;
 }
 
 #clock {
@@ -141,7 +136,7 @@ label:focus {
 }
 
 #pulseaudio.muted {
-    background-color: #90b1b1;
+    background-color: #000000;
     color: #2a5c45;
 }
 

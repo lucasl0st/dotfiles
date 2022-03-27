@@ -1,0 +1,78 @@
+env:
+  TERM: xterm-256color
+
+window:
+  opacity: 0.82
+
+  padding:
+    x: 6
+    y: 6
+
+  dynamic_padding: false
+
+  title: Alacritty
+
+  class:
+    instance: Alacritty
+    general: Alacritty
+
+scrolling:
+  history: 5000
+
+font:
+  # Normal (roman) font face
+  normal:
+    family: Source Code Pro
+    style: Regular
+
+  bold:
+    family: Source Code Pro
+    style: Bold
+
+  italic:
+    family: Source Code Pro
+    style: Italic
+
+  bold_italic:
+    family: Source Code Pro
+    style: Bold Italic
+
+  size: 12.0
+
+  offset:
+    x: 0
+    y: 1
+
+draw_bold_text_with_bright_colors: true
+
+colors:
+  primary:
+    background: '#011627'
+    foreground: '#d6deeb'
+
+  cursor:
+    text: '#011627'
+    cursor: '#d6deeb'
+
+  selection:
+    background: '#1b90dd'
+
+  normal:
+    black:   '#011627'
+    red:     '#ef5350'
+    green:   '#22da6e'
+    yellow:  '#c5e478'
+    blue:    '#82aaff'
+    magenta: '#c792ea'
+    cyan:    '#21c7a8'
+    white:   '#ffffff'
+
+  bright:
+    black:   '#575656'
+    red:     '#ef5350'
+    green:   '#22da6e'
+    yellow:  '#ffeb95'
+    blue:    '#82aaff'
+    magenta: '#c792ea'
+    cyan:    '#7fdbca'
+    white:   '#ffffff'
