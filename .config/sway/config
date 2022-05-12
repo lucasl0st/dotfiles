@@ -39,13 +39,13 @@ output $display2 pos $display2X $display2Y
 font pango:monospace Big 8
 
 #startup applications
-exec --no-startup-id $network-applet
-exec --no-startup-id $auth-agent
-exec --no-startup-id $keyring
-exec --no-startup-id $bluetooth-applet
-exec --no-startup-id $lockidle
+exec $network-applet
+exec $auth-agent
+exec $keyring
+exec $bluetooth-applet
+exec $lockidle
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-exec --no-startup-id $notification
+exec $notification
 
 #####Keybindings#####
 set $mod Mod4
@@ -53,10 +53,10 @@ set $mod1 Ctrl
 set $mod2 Ctrl+Mod4
 
 #Media keys
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioStop exec playerctl stop
@@ -68,10 +68,10 @@ bindsym XF86MonBrightnessUp exec brightnessctl s 1000+
 bindsym XF86MonBrightnessDown exec brightnessctl s 1000-
 
 #Menu keys
-bindsym $mod+d exec --no-startup-id $menu
-bindsym $mod+shift+p exec --no-startup-id $lock
-bindsym $mod+Pause exec --no-startup-id sway-pause
-bindsym $mod+shift+s exec --no-startup-id systemctl suspend
+bindsym $mod+d exec $menu
+bindsym $mod+shift+p exec $lock
+bindsym $mod+Pause exec sway-pause
+bindsym $mod+shift+s exec systemctl suspend
 
 #General
 bindsym $mod+Return exec $terminal
@@ -301,3 +301,16 @@ exec_always {
     gsettings set $gnome-schema icon-theme 'Adwaita'
     gsettings set $gnome-schema cursor-theme 'Adwaita'
 }
+
+set $mode_system System (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym s exec systemctl suspend, mode "default"
+    bindsym h exec systemctl hibernate, mode "default"
+    bindsym r exec systemctl reboot, mode "default"
+    bindsym Shift+s exec systemctl shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+P mode "$mode_system"
