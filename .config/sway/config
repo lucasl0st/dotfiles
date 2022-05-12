@@ -1,6 +1,6 @@
 #required packages:
 # Arch Linux:
-#  ly sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock-effects networkmanager j4-dmenu-desktop nwg-launchers pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl bluez bluez-utils blueman
+#  ly sway xorg-server-xwayland waybar otf-font-awesome alacritty polkit-gnome gnome-keyring swaylock-effects-git networkmanager sway-launcher-desktop pipewire pipewire-alsa pipewire-pulse playerctl brightnessctl bluez bluez-utils blueman swaync
 
 # Services:
 #  ly bluetooth NetworkManager
@@ -15,7 +15,8 @@ set $bluetooth-applet "blueman-applet"
 set $auth-agent "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 set $keyring "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh"
 set $lock "swaylock --screenshots --clock --effect-blur 10x10 --grace 10"
-set $notification "/usr/bin/dunst"
+set $notification "swaync"
+set $notification-center "swaync-client -t -sw"
 
 set $lockidle "swayidle -w \
     timeout 340 '$lock' 
@@ -23,9 +24,10 @@ set $lockidle "swayidle -w \
 set $network-applet "nm-applet"
 set $terminal "alacritty"
 set $exit "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'"
-set $menu "j4-dmenu-desktop"
-set $shutdown-menu "nwgbar"
-set $grid "nwggrid"
+
+
+for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt
+set $menu exec $terminal --class=launcher -e sway-launcher-desktop
 
 include display
 
@@ -67,8 +69,6 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 1000-
 
 #Menu keys
 bindsym $mod+d exec --no-startup-id $menu
-bindsym $mod+p exec --no-startup-id $shutdown-menu
-bindsym $mod+g exec --no-startup-id $grid
 bindsym $mod+shift+p exec --no-startup-id $lock
 bindsym $mod+Pause exec --no-startup-id sway-pause
 bindsym $mod+shift+s exec --no-startup-id systemctl suspend
@@ -78,6 +78,7 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec $exit
+bindsym $mod+Shift+n exec $notification-center
 
 floating_modifier $mod
 
