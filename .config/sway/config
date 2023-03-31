@@ -7,12 +7,17 @@ input * {
 set $bluetooth-applet "blueman-applet"
 set $auth-agent "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 set $keyring "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh"
-set $lock "swaylock --screenshots --clock --effect-blur 10x10 --grace 10"
+set $lock "swaylock --screenshots --clock --effect-blur 10x10"
+set $suspendlock "$lock -f && systemctl suspend"
+
 set $notification "swaync"
 set $notification-center "swaync-client -t -sw"
 
 set $lockidle "swayidle -w \
-    timeout 340 '$lock' 
+        timeout 340 '$lock' \
+        timeout 600 swaymsg "output * dpms off \
+                resume 'swaymsg "output * dpms on"' \
+        before-sleep '$lock'
 
 set $network-applet "nm-applet"
 set $terminal "alacritty"
@@ -57,14 +62,16 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 #Display brightness
-bindsym XF86MonBrightnessUp exec brightnessctl s 1000+
-bindsym XF86MonBrightnessDown exec brightnessctl s 1000-
+bindsym XF86MonBrightnessUp exec brightnessctl s 50+
+bindsym XF86MonBrightnessDown exec brightnessctl s 50-
+
+#Lock on laptop lid close
+bindswitch --reload --locked lid:on exec $lock
 
 #Menu keys
 bindsym $mod+d exec $menu
 bindsym $mod+shift+p exec $lock
 bindsym $mod+Pause exec sway-pause
-bindsym $mod+shift+s exec systemctl suspend
 
 #General
 bindsym $mod+Return exec $terminal
