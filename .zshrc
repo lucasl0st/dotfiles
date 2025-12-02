@@ -43,4 +43,11 @@ bindkey "^[[1;3D" backward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 
-neofetch
+alias b64='pbpaste | base64 -d | pbcopy'
+alias tf='tofu'
+
+gfr() {
+  local branch="${1:-main}"
+  git fetch origin $branch:$branch
+  git rebase $branch
+}
